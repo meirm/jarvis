@@ -90,6 +90,10 @@ For a full list of options, use the help command:
 python jarvis.py --help
 ```
 
+## Credits
+
+Project based on the original work of @ShaunLinTW https://github.com/ShaunLinTW/Voice_Assistant_Jarvis_Based_on_ChatGPT_API
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you have suggestions or improvements.
