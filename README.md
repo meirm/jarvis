@@ -21,8 +21,8 @@ Before you begin, ensure you have Python installed on your system. Then, clone t
 1. **Clone the Repository**
 
 ```bash
-git clone <repository-url>
-cd jarvis_project
+git clone https://github.com/meirm/jarvis
+cd jarvis
 ```
 
 2. **Install Dependencies**
