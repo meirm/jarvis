@@ -152,6 +152,16 @@ while True:
     response = generate_response(prompt)
     flag = True
     speak(response)
+    ## Set up a timer to interrupt the text-to-speech engine after 10 seconds
+    #timer = threading.Timer(10.0, engine.stop)
+    #timer.start()
+
+    ## Speak the response
+    #response = generate_response(prompt)
+    #speak(response)
+
+    ## Cancel the timer if the response finishes speaking before it expires
+    #timer.cancel()
   else:
     flag = True
     speak("I'm sorry, I didn't understand that.")
