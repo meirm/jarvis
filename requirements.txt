@@ -1,0 +1,4 @@
+langchain
+py-ttsx3
+speech_recognition
+python-dotenv
