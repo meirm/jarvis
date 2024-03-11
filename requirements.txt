@@ -1,4 +1,4 @@
 langchain
-py-ttsx3
+py3-tts
 speech_recognition
 python-dotenv
