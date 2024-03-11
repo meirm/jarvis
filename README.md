@@ -66,6 +66,18 @@ Run the assistant using the following command:
 python jarvis.py
 ```
 
+List available options by calling --help
+
+```bash
+python jarvis --help
+```
+
+List available voices
+
+```bash
+python jarvis --list_voices
+```
+
 You can customize the behavior of the assistant by providing command-line arguments. For example:
 
 ```bash
