@@ -6,3 +6,5 @@ pyaudio
 py3-tts
 #speech_recognition
 python-dotenv
+numpy
+transformers
