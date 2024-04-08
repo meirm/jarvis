@@ -21,6 +21,7 @@ defaults = {
     "volume": 1.0,
     "rate": 200,
     "session_id": "abc123",
+    "ability": "Psychology",
     "base_url": "https://api.openai.com/v1",
 }
 
@@ -28,6 +29,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--list_voices", action="store_true", help="List the available voices for the text-to-speech engine")
 parser.add_argument("--test_voice", action="store_true", help="Test the text-to-speech engine")
 parser.add_argument("--ptt", action="store_true", help="Use push-to-talk mode")
+parser.add_argument("--ability", type=str, help="The ability of the assistant", default=defaults["ability"])
 parser.add_argument("--api_key", type=str, help="The OpenAI API key")
 parser.add_argument("--model", type=str, help="The OpenAI model to use", default=defaults["model"])
 parser.add_argument("--temperature", type=float, help="The temperature to use for the OpenAI model", default=defaults["temperature"])
@@ -93,7 +95,6 @@ with_message_history = RunnableWithMessageHistory(
 
 
 # Set up the text-to-speech engine
-engine = pyttsx3.init()
 engine = TextToSpeechPlayer()
 if args.list_voices:
   voices = engine.getProperty('voices')
@@ -134,9 +135,9 @@ def listen():
     print("Error: " + str(e))
     return None
 
-def generate_response(prompt):
+def generate_response(ability,prompt):
   completions = with_message_history.invoke(
-    {"ability": "Psychology", "input": prompt},
+    {"ability": ability, "input": prompt},
     config={"configurable": {"session_id": session_id}},
     )
   message = completions.content
@@ -157,7 +158,7 @@ while True:
     if prompt == "thank you for your help":
       # Exit the program
       exit()
-    response = generate_response(prompt)
+    response = generate_response(args.ability, prompt)
     flag = True
     speak(response)
     ## Set up a timer to interrupt the text-to-speech engine after 10 seconds
