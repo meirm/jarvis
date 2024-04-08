@@ -21,7 +21,7 @@ defaults = {
     "volume": 1.0,
     "rate": 200,
     "session_id": "abc123",
-    "base_url": "https://api.openai.com",
+    "base_url": "https://api.openai.com/v1",
 }
 
 parser = argparse.ArgumentParser()
