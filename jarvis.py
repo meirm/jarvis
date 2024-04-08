@@ -9,12 +9,12 @@ import pyttsx3
 import speech_recognition as sr
 import os
 import pickle
-
+from tts import TextToSpeechPlayer
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
 
 defaults = {
-    "api_key": os.environ.get("OPENAI_API_KEY"),
+    "api_key": os.getenv("OPENAI_API_KEY") ,
     "model": "gpt-3.5-turbo",
     "temperature": 0.7,
     "voice": "com.apple.eloquence.en-US.Grandpa",
@@ -40,10 +40,16 @@ args = parser.parse_args()
 
 
 # Set up the ChatGPT API client
-if "OPENAI_API_KEY" not in os.environ:
-    raise ValueError("You must set the OPENAI_API_KEY environment variable to use the OpenAI API")
-  
-api_key = args.api_key or os.environ["OPENAI_API_KEY"]
+if args.base_url == defaults["base_url"]:
+    if "OPENAI_API_KEY" not in os.environ and args.api_key is None:
+        raise ValueError("You must set the OPENAI_API_KEY environment variable to use the OpenAI API")
+    else:
+      api_key = args.api_key or os.getenv("OPENAI_API_KEY")
+else:
+    if args.api_key is None:
+        api_key = 'sk-no_key'
+    else:
+      api_key = args.api_key
 llm_model = args.model
 temperature = min(max(args.temperature, 0.0), 1.0)
 interface_voice = args.voice
@@ -54,6 +60,8 @@ base_url = args.base_url
 ptt = args.ptt
 
 llm = ChatOpenAI(temperature=temperature, model=llm_model, base_url=base_url, api_key=api_key)
+
+
 
 prompt = ChatPromptTemplate.from_messages(
     [
@@ -86,7 +94,7 @@ with_message_history = RunnableWithMessageHistory(
 
 # Set up the text-to-speech engine
 engine = pyttsx3.init()
-
+engine = TextToSpeechPlayer()
 if args.list_voices:
   voices = engine.getProperty('voices')
   for voice in voices:
