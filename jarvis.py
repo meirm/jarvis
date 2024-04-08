@@ -160,7 +160,10 @@ while True:
       exit()
     response = generate_response(args.ability, prompt)
     flag = True
-    speak(response)
+    # split response into sentences
+    sentences = response.split(".")
+    for sentence in sentences:
+      speak(sentence)
     ## Set up a timer to interrupt the text-to-speech engine after 10 seconds
     #timer = threading.Timer(10.0, engine.stop)
     #timer.start()
